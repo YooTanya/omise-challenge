@@ -71,7 +71,7 @@ const Card = (props) => {
           <Typography>Select the amount to donate (USD)</Typography>
           <div style={optionsRadioGroup}>
             {payments?.map((payment, paymentIndex) => (
-              <div style={option}>
+              <div key={paymentIndex.toString()} style={option}>
                 <input
                   name="payment"
                   type="radio"
