@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import CloseButton from '../../shared/CloseButton';
 import Button from '../../shared/Button';
 import Image from '../../shared/Image';
@@ -55,34 +55,46 @@ const closeButton = {
 };
 
 const Card = (props) => {
-
+  const [isOpenOption, setIsOpenOption] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState(0);
   const payments = [10, 20, 50, 100, 500];
+
+  const handleOnCloseOption = useCallback(() => {
+    setIsOpenOption(false);
+    setSelectedAmount(0);
+  },[]);
+
+  const handleOnOpenOption = useCallback(() => {
+    setIsOpenOption(true);
+  },[]);
 
   return (
     <Thumbnail>
       <Image url={`./images/${props?.charity.image}`} style={image}/>
       <div style={description}>
         <p>{props?.charity?.name}</p>
-        <Button style={button}>Donate</Button>
+        <Button style={button} onClick={handleOnOpenOption}>Donate</Button>
       </div>
-      <Paper style={optionsContainer}>
-        <CloseButton style={closeButton}>X</CloseButton>
-        <div style={optionsContent}>
-          <Typography>Select the amount to donate (USD)</Typography>
-          <div style={optionsRadioGroup}>
-            {payments?.map((payment, paymentIndex) => (
-              <div key={paymentIndex.toString()} style={option}>
-                <input
-                  name="payment"
-                  type="radio"
-                />
-                <label>{payment}</label>
-              </div>
-            ))}
+      {isOpenOption && (
+        <Paper style={optionsContainer}>
+          <CloseButton style={closeButton} onClick={handleOnCloseOption}>X</CloseButton>
+          <div style={optionsContent}>
+            <Typography>Select the amount to donate (USD)</Typography>
+            <div style={optionsRadioGroup}>
+              {payments?.map((payment, paymentIndex) => (
+                <div key={paymentIndex.toString()} style={option}>
+                  <input
+                    name="payment"
+                    type="radio"
+                  />
+                  <label>{payment}</label>
+                </div>
+              ))}
+            </div>
+            <Button>Pay</Button>
           </div>
-          <Button>Pay</Button>
-        </div>
-      </Paper>
+        </Paper>
+      )}
     </Thumbnail>
   );
 };
