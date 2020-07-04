@@ -28,7 +28,7 @@ const image = {
 const optionsContainer = {
   position: 'absolute',
   top: '0',
-  opacity: '0.8',
+  opacity: '0.97',
 };
 
 const optionsContent = {
@@ -45,6 +45,7 @@ const optionsRadioGroup = {
 
 const option = {
   display: 'inline-block',
+  marginBottom: '1rem',
 };
 
 const closeButton = {
@@ -79,6 +80,7 @@ const Card = (props) => {
               </div>
             ))}
           </div>
+          <Button>Pay</Button>
         </div>
       </Paper>
     </Thumbnail>
