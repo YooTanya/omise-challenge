@@ -59,6 +59,8 @@ const closeButton = {
 const Card = (props) => {
   const [isOpenOption, setIsOpenOption] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(0);
+  const [disabledButton, setDisabledButton] = useState(true);
+
   const dispatch = useDispatch();
 
   const payments = [10, 20, 50, 100, 500];
@@ -74,6 +76,7 @@ const Card = (props) => {
 
   const handleOnSelectAmount = useCallback((amount) => () => {
     setSelectedAmount(amount)
+    setDisabledButton(false);
   },[]);
 
   const handleOnPayment = useCallback((charitiesId, amount, currency) => () => {
@@ -104,7 +107,7 @@ const Card = (props) => {
                 </div>
               ))}
             </div>
-            <Button disable={selectedAmount == 0} onClick={handleOnPayment(props?.charity?.id, selectedAmount, props?.charity?.currency)}>Pay</Button>
+            <Button disabled={disabledButton} onClick={handleOnPayment(props?.charity?.id, selectedAmount, props?.charity?.currency)}>Pay</Button>
           </div>
         </Paper>
       )}
