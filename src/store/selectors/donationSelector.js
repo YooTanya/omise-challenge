@@ -1,1 +1,1 @@
-export const getDonationState = (state) => state.donate;
+export const getDonationState = (state) => state.donations;
