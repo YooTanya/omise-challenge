@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import CloseButton from '../../shared/CloseButton';
 import Button from '../../shared/Button';
 import Image from '../../shared/Image';
 import Paper from '../../shared/Paper';
 import Thumbnail from '../../shared/Thumbnail';
 import Typography from '../../shared/Typography';
-import { useSelector } from 'react-redux';
-import { getCurrency } from '../../../store/selectors';
+import { makePayments } from '../../../store/actions';
 
 const description = {
   display: 'flex',
@@ -59,8 +59,8 @@ const closeButton = {
 const Card = (props) => {
   const [isOpenOption, setIsOpenOption] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(0);
+  const dispatch = useDispatch();
 
-  const currency = useSelector(getCurrency);
   const payments = [10, 20, 50, 100, 500];
 
   const handleOnCloseOption = useCallback(() => {
@@ -71,6 +71,14 @@ const Card = (props) => {
   const handleOnOpenOption = useCallback(() => {
     setIsOpenOption(true);
   },[]);
+
+  const handleOnSelectAmount = useCallback((amount) => () => {
+    setSelectedAmount(amount)
+  },[]);
+
+  const handleOnPayment = useCallback((charitiesId, amount, currency) => () => {
+    dispatch(makePayments(charitiesId, amount, currency))
+  },[dispatch]);
 
   return (
     <Thumbnail>
@@ -83,19 +91,20 @@ const Card = (props) => {
         <Paper style={optionsContainer}>
           <CloseButton style={closeButton} onClick={handleOnCloseOption}>X</CloseButton>
           <div style={optionsContent}>
-            <Typography>Select the amount to donate (USD)</Typography>
+            <Typography>Select the amount to donate ({props?.charity?.currency})</Typography>
             <div style={optionsRadioGroup}>
-              {payments?.map((payment, paymentIndex) => (
-                <div key={paymentIndex.toString()} style={option}>
+              {payments?.map((amount, amountIndex) => (
+                <div key={amountIndex.toString()} style={option}>
                   <input
                     name="payment"
                     type="radio"
+                    onClick={handleOnSelectAmount(amount)}
                   />
-                  <label>{payment}</label>
+                  <label>{amount}</label>
                 </div>
               ))}
             </div>
-            <Button>Pay</Button>
+            <Button disable={selectedAmount == 0} onClick={handleOnPayment(props?.charity?.id, selectedAmount, props?.charity?.currency)}>Pay</Button>
           </div>
         </Paper>
       )}
