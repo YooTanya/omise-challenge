@@ -37,7 +37,7 @@ export function makePayments(charitiesId, amount, currency) {
       });
       if (response.status >= 200 && response.status < 300) {
         dispatch(getSuccessMessage(`Thanks for donate ${amount}!`));
-        dispatch(updateTotalDonation(summaryDonations(amount + getState().donate)));
+        dispatch(updateTotalDonation(amount + getState().donations));
         setTimeout(() => dispatch(resetSuccessMessage()), 2000);
       } else {
         throw new Error('Cannot make a payment');
