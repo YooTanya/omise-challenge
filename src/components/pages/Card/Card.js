@@ -5,6 +5,8 @@ import Image from '../../shared/Image';
 import Paper from '../../shared/Paper';
 import Thumbnail from '../../shared/Thumbnail';
 import Typography from '../../shared/Typography';
+import { useSelector } from 'react-redux';
+import { getCurrency } from '../../../store/selectors';
 
 const description = {
   display: 'flex',
@@ -57,6 +59,8 @@ const closeButton = {
 const Card = (props) => {
   const [isOpenOption, setIsOpenOption] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(0);
+
+  const currency = useSelector(getCurrency);
   const payments = [10, 20, 50, 100, 500];
 
   const handleOnCloseOption = useCallback(() => {
