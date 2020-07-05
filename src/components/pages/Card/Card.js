@@ -72,7 +72,7 @@ const Card = (props) => {
     <Thumbnail>
       <Image url={`./images/${props?.charity.image}`} style={image}/>
       <div style={description}>
-        <p>{props?.charity?.name}</p>
+        <Typography>{props?.charity?.name}</Typography>
         <Button style={button} onClick={handleOnOpenOption}>Donate</Button>
       </div>
       {isOpenOption && (
