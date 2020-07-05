@@ -68,6 +68,7 @@ const Card = (props) => {
   const handleOnCloseOption = useCallback(() => {
     setIsOpenOption(false);
     setSelectedAmount(0);
+    setDisabledButton(true);
   },[]);
 
   const handleOnOpenOption = useCallback(() => {
