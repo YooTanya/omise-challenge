@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getCharities, getPayments } from './store/actions';
 import { getMessageState, getDonationState } from './store/selectors';
+import { Grid, Box } from 'react-raster';
 import { Landing } from './components/pages/Landing';
 import Message from './components/shared/Message';
 import React, { useEffect } from 'react';
 import Theme from './styles/Theme';
 import Typography from './components/shared/Typography';
 import Sticky from './components/shared/Sticky';
-import { Grid, Box } from 'react-raster';
+import NumberFormat from 'react-number-format';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const App = () => {
         </Box>
       </Grid>
       <Sticky>
-        <Typography>All donation: {donation || 0}</Typography>
+        <Typography>All donation: <NumberFormat value={donation || 0} displayType={'text'} thousandSeparator={true} /></Typography>
       </Sticky>
     </Theme>
   );
