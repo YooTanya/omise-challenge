@@ -8,7 +8,7 @@ const Landing = () => {
   const charities = useSelector(getCharitiesState);
 
   return (
-    <Grid breakpoints={[0, 432, 768, 1024, 1200, 1400]} colspan={12} gutterX={'2vw'} gutterY={'2vw'} top={'2vw'}>
+    <Grid breakpoints={[0, 432, 768, 1024, 1200, 1400]} colspan={12} gutterX={'2rem'} gutterY={'2rem'} top={'2rem'} bottom={'6rem'}>
       {charities.charities?.map((charity, charityIndex) => (
         <Box key={`${charityIndex}`} cols={[12, 12, 6]}>
           <Card charity={charity} index={charityIndex} />

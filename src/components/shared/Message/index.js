@@ -5,7 +5,7 @@ const Message = styled.div`
   border-radius: 4px;
   color: white;
   font-weight: bold;
-  padding: 2rem 4rem;
+  padding: 1rem 3rem;
   margin: 2rem 0;
 `;
 
